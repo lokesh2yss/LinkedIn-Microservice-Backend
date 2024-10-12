@@ -1,2 +1,4 @@
-﻿post-service\src\main\resources\application.properties
-﻿user-service\src\main\resources\application.properties
+﻿post-service/src/main/resources/application.properties
+post-servicesrc/main/resources/application.yaml
+user-service/src/main/resources/application.properties
+user-servicesrc/main/resources/application.yaml

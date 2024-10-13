@@ -6,3 +6,5 @@ discovery-server/src/main/resources/application.properties
 discovery=server/src/main/resources/application.yaml
 api-gateway/src/main/resources/application.properties
 api-gateway/src/main/resources/application.yaml
+connection-service/src/main/resources/application.properties
+connection-service/src/main/resources/application.yaml

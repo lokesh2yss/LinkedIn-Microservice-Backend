@@ -15,22 +15,22 @@ public class ConnectionController {
     private final ConnectionService connectionService;
 
     @GetMapping(path = "/first-degree")
-    public ResponseEntity<List<Person>> getFirstConnections(@RequestHeader("X-User-Id") Long userId) {
-        List<Person> persons = connectionService.getFirstDegreeConnections(userId);
+    public ResponseEntity<List<Person>> getFirstConnections() {
+        List<Person> persons = connectionService.getFirstDegreeConnections();
         return ResponseEntity.ok(persons);
     }
 
     //@GetMapping(path = "/{userId}/second-degree")
     @GetMapping(path = "/second-degree")
-    public ResponseEntity<List<Person>> getSecondConnections(@RequestHeader("X-User-Id") Long userId) {
-        List<Person> persons = connectionService.getSecondDegreeConnections(userId);
+    public ResponseEntity<List<Person>> getSecondConnections() {
+        List<Person> persons = connectionService.getSecondDegreeConnections();
         return ResponseEntity.ok(persons);
     }
 
     //@GetMapping(path = "/{userId}/third-degree")
     @GetMapping(path = "/third-degree")
-    public ResponseEntity<List<Person>> getThirdConnections(@RequestHeader("X-User-Id") Long userId) {
-        List<Person> persons = connectionService.getThirdDegreeConnections(userId);
+    public ResponseEntity<List<Person>> getThirdConnections() {
+        List<Person> persons = connectionService.getThirdDegreeConnections();
         return ResponseEntity.ok(persons);
     }
 }

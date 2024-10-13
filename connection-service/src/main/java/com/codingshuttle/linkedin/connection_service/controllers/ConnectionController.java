@@ -4,10 +4,7 @@ import com.codingshuttle.linkedin.connection_service.entities.Person;
 import com.codingshuttle.linkedin.connection_service.services.ConnectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,20 +14,22 @@ import java.util.List;
 public class ConnectionController {
     private final ConnectionService connectionService;
 
-    @GetMapping(path = "/{userId}/first-degree")
-    public ResponseEntity<List<Person>> getFirstConnections(@PathVariable Long userId) {
+    @GetMapping(path = "/first-degree")
+    public ResponseEntity<List<Person>> getFirstConnections(@RequestHeader("X-User-Id") Long userId) {
         List<Person> persons = connectionService.getFirstDegreeConnections(userId);
         return ResponseEntity.ok(persons);
     }
 
-    @GetMapping(path = "/{userId}/second-degree")
-    public ResponseEntity<List<Person>> getSecondConnections(@PathVariable Long userId) {
+    //@GetMapping(path = "/{userId}/second-degree")
+    @GetMapping(path = "/second-degree")
+    public ResponseEntity<List<Person>> getSecondConnections(@RequestHeader("X-User-Id") Long userId) {
         List<Person> persons = connectionService.getSecondDegreeConnections(userId);
         return ResponseEntity.ok(persons);
     }
 
-    @GetMapping(path = "/{userId}/third-degree")
-    public ResponseEntity<List<Person>> getThirdConnections(@PathVariable Long userId) {
+    //@GetMapping(path = "/{userId}/third-degree")
+    @GetMapping(path = "/third-degree")
+    public ResponseEntity<List<Person>> getThirdConnections(@RequestHeader("X-User-Id") Long userId) {
         List<Person> persons = connectionService.getThirdDegreeConnections(userId);
         return ResponseEntity.ok(persons);
     }

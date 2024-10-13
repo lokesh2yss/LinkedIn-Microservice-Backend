@@ -1,5 +1,6 @@
 package com.codingshuttle.linkedin.post_service.controllers;
 
+import com.codingshuttle.linkedin.post_service.auth.UserContextHolder;
 import com.codingshuttle.linkedin.post_service.dto.PostCreateRequestDto;
 import com.codingshuttle.linkedin.post_service.dto.PostDto;
 import com.codingshuttle.linkedin.post_service.services.PostService;
@@ -19,17 +20,14 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostCreateRequestDto postCreateRequestDto,
-                                              HttpServletRequest httpServletRequest) {
+    public ResponseEntity<PostDto> createPost(@RequestBody PostCreateRequestDto postCreateRequestDto) {
         PostDto createdPost = postService.createPost(postCreateRequestDto, 1L);
         return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
 
     }
 
     @GetMapping(path="/{postId}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable Long postId, HttpServletRequest request) {
-        String userId = request.getHeader("X-User-Id");
-        log.info("UserId passed in header is: "+userId);
+    public ResponseEntity<PostDto> getPostById(@PathVariable Long postId) {
         PostDto postDto = postService.getPostById(postId);
 
         return ResponseEntity.ok(postDto);

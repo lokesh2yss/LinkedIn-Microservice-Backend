@@ -1,4 +1,8 @@
 ﻿post-service/src/main/resources/application.properties
-post-servicesrc/main/resources/application.yaml
+post-service/src/main/resources/application.yaml
 user-service/src/main/resources/application.properties
-user-servicesrc/main/resources/application.yaml
+user-service/src/main/resources/application.yaml
+discovery-server/src/main/resources/application.properties
+discovery=server/src/main/resources/application.yaml
+api-gateway/src/main/resources/application.properties
+api-gateway/src/main/resources/application.yaml

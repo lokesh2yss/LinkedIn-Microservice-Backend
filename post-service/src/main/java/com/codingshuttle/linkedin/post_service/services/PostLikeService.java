@@ -1,7 +1,5 @@
 package com.codingshuttle.linkedin.post_service.services;
 
-import com.codingshuttle.linkedin.post_service.dto.PostDto;
-import com.codingshuttle.linkedin.post_service.entities.Post;
 import com.codingshuttle.linkedin.post_service.entities.PostLike;
 import com.codingshuttle.linkedin.post_service.exceptions.BadRequestException;
 import com.codingshuttle.linkedin.post_service.exceptions.ResourceNotFoundException;
@@ -10,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.module.ResolutionException;
 
 @Service
 @Slf4j

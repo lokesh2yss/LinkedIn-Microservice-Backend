@@ -1,8 +1,6 @@
 package com.codingshuttle.linkedin.post_service.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 

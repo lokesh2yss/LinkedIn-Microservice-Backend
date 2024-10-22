@@ -33,4 +33,9 @@ public class ConnectionController {
         List<Person> persons = connectionService.getThirdDegreeConnections();
         return ResponseEntity.ok(persons);
     }
+
+    @PostMapping(path = "/request/{requestedUserId}")
+    public ResponseEntity<Boolean> sendConnectionRequest(@PathVariable Long requestedUserId) {
+        return ResponseEntity.ok(connectionService.sendConnectionRequest(requestedUserId));
+    }
 }

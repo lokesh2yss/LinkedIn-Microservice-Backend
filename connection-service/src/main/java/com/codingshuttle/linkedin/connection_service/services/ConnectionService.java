@@ -32,4 +32,22 @@ public class ConnectionService {
         log.info("Getting third degree connections for user with id: {}", userId);
         return personRepository.getThirdDegreeConnections(userId);
     }
+
+    public Boolean sendConnectionRequest(Long receiverUserId) {
+        Long senderUserId = UserContextHolder.getCurrentUserId();
+        boolean connectionRequestExists = personRepository.connectionRequestExist(senderUserId, receiverUserId);
+        if(connectionRequestExists) {
+            throw new RuntimeException("Connection request already exists. Cannot resend another request");
+        }
+
+        boolean alreadyConnected = personRepository.alreadyConnected(senderUserId, receiverUserId);
+        if(alreadyConnected) {
+            throw new RuntimeException("Connection already exists, cannot send new connection request");
+        }
+
+        personRepository.createNewConnectionRequest(senderUserId, receiverUserId);
+
+        return true;
+
+    }
 }

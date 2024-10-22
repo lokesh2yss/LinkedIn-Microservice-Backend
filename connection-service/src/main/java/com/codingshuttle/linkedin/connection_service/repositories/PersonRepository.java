@@ -34,5 +34,25 @@ public interface PersonRepository extends Neo4jRepository<Person, Long> {
             "RETURN thirdDegree")
     List<Person> getThirdDegreeConnections(Long userId);
 
+    @Query("MATCH (p1: Person) -[r: REQUESTED_TO]-> (p2: Person) " +
+            "WHERE p1.userId = $senderId AND p2.userId = $receiverId " +
+            "return count(r) > 0")
+    boolean connectionRequestExist(Long senderId, Long receiverId);
 
+
+    @Query("MATCH (p1: Person) -[r: CONNECTED_TO]- (p2: Person) " +
+            "WHERE p1.userId = $senderId AND p2.userId = $receiverId " +
+            "return count(r) > 0")
+    boolean alreadyConnected(Long senderId, Long receiverId);
+
+    @Query("MATCH (p1: Person), (p2:Person) " +
+            "WHERE p1.userId = $senderId AND p1.userId = $receiverID " +
+            "CREATE (p1) - [r: REQUESTED_TO]-> (p2) ")
+    void createNewConnectionRequest(Long senderId, Long receiverId);
+
+    @Query("MATCH (p1: Person) - [r:REQUESTED_TO] - (p2:Person) " +
+            "WHERE p1.userId = $senderId AND p1.userId = $receiverID " +
+            "DELETE (r)" +
+            "CREATE (p1) - [r: CONNECTED_TO]-> (p2) ")
+    void createNewConnection(Long senderId, Long receiverId);
 }

@@ -38,4 +38,13 @@ public class ConnectionController {
     public ResponseEntity<Boolean> sendConnectionRequest(@PathVariable Long requestedUserId) {
         return ResponseEntity.ok(connectionService.sendConnectionRequest(requestedUserId));
     }
+
+    @PostMapping(path = "/accept/{userId}")
+    public ResponseEntity<Boolean> acceptConnectionRequest(@PathVariable Long userId) {
+        return ResponseEntity.ok(connectionService.acceptConnectionRequest(userId));
+    }
+    @PostMapping(path = "/reject/{userId}")
+    public ResponseEntity<Boolean> rejectConnectionRequest(@PathVariable Long userId) {
+        return ResponseEntity.ok(connectionService.rejectConnectionRequest(userId));
+    }
 }

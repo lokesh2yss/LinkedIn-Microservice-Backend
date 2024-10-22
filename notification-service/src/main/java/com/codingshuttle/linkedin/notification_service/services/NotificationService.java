@@ -19,5 +19,6 @@ public class NotificationService {
         notification.setNotificationType(notificationType);
 
         notificationRepository.save(notification);
+        log.info("Successfully saved notification to db for user wit id: {}", userId);
     }
 }

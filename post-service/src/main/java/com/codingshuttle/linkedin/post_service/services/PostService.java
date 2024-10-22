@@ -6,11 +6,13 @@ import com.codingshuttle.linkedin.post_service.dto.PersonDto;
 import com.codingshuttle.linkedin.post_service.dto.PostCreateRequestDto;
 import com.codingshuttle.linkedin.post_service.dto.PostDto;
 import com.codingshuttle.linkedin.post_service.entities.Post;
+import com.codingshuttle.linkedin.post_service.events.PostCreatedEvent;
 import com.codingshuttle.linkedin.post_service.exceptions.ResourceNotFoundException;
 import com.codingshuttle.linkedin.post_service.repositories.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,19 +24,22 @@ public class PostService {
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
     private final ConnectionClient connectionClient;
-    public PostDto createPost(PostCreateRequestDto postCreateRequestDto, Long userId) {
+    private final KafkaTemplate<Long, PostCreatedEvent> kafkaTemplate;
+    public PostDto createPost(PostCreateRequestDto postCreateRequestDto) {
+        Long userId = UserContextHolder.getCurrentUserId();
         Post post = modelMapper.map(postCreateRequestDto, Post.class);
         post.setUserId(userId);
         Post savedPost = postRepository.save(post);
+        PostCreatedEvent postCreatedEvent = PostCreatedEvent.builder()
+                        .creatorId(userId)
+                        .content(savedPost.getContent())
+                        .postId(savedPost.getId())
+                        .build();
+        kafkaTemplate.send("post-created-topic", postCreatedEvent);
         return modelMapper.map(savedPost, PostDto.class);
     }
 
     public PostDto getPostById(Long postId) {
-        Long userId = UserContextHolder.getCurrentUserId();
-        List<PersonDto> firstConnections = connectionClient.getFirstConnections();
-
-        // TODO send notifications to all these connections
-
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: "+postId));
 

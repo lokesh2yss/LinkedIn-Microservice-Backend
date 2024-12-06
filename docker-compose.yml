@@ -84,7 +84,7 @@ services:
       - linkedin-network
 
   discovery-server:
-    image: lokesh2yss/linkedin-app/discovery-server:v1
+    image: lokesh2yss/linkedin-app-discovery-server:v1
     container_name: discovery-server
     networks:
       - linkedin-network
@@ -92,7 +92,7 @@ services:
       - "8761:8761"
 
   post-service:
-    image: lokesh2yss/linkedin-app/post-service:v1
+    image: lokesh2yss/linkedin-app-post-service:v1
     container_name: post-service
     networks:
       - linkedin-network
@@ -102,7 +102,7 @@ services:
       - post-db
 
   user-service:
-    image: lokesh2yss/linkedin-app/user-service:v1
+    image: lokesh2yss/linkedin-app-user-service:v1
     container_name: user-service
     networks:
       - linkedin-network
@@ -112,7 +112,7 @@ services:
       - user-db
 
   notification-service:
-    image: lokesh2yss/linkedin-app/notification-service:v1
+    image: lokesh2yss/linkedin-app-notification-service:v1
     container_name: notification-service
     networks:
       - linkedin-network
@@ -123,7 +123,7 @@ services:
 
 
   connection-service:
-    image: lokesh2yss/linkedin-app/connection-service:v1
+    image: lokesh2yss/linkedin-app-connection-service:v1
     container_name: connection-service
     networks:
       - linkedin-network
@@ -133,7 +133,7 @@ services:
       - connection-db
 
   api-gateway:
-    image: lokesh2yss/linkedin-app/api-gateway:v1
+    image: lokesh2yss/linkedin-app-api-gateway:v1
     container_name: api-gateway
     ports:
       - "8080:8080"

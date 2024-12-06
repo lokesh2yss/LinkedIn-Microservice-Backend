@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connection-service
+spec:
+  selector:
+    matchLabels:
+      app: connection-service
+  template:
+    metadata:
+      labels:
+        app: connection-service
+    spec:
+      containers:
+      - name: connection-service
+        image: lokesh2yss/linkedin-app-connection-service
+        resources:
+          limits:
+            memory: "400Mi"
+            cpu: "200m"
+          requests:
+            memory: "200Mi"
+            cpu: "100m"
+        env:
+         - name: SPRING_PROFILES_ACTIVE
+           value: k8s
+         - name: DB_USER
+           value: "neo4j"
+         - name: DB_PASSWORD
+           value: "password123"
+         - name: DB_SERVICE
+           value: "neo4j"
+        ports:
+        - containerPort: 9030
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: connection-service
+spec:
+  selector:
+    app: connection-service
+  ports:
+  - port: 80
+    targetPort: 9030
+
+
+

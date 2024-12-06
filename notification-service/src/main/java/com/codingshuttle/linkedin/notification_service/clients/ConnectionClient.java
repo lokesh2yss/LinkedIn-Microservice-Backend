@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
-@FeignClient(name = "connection-service", path="/connections/core")
+@FeignClient(name = "connection-service", path="/connections/core", url = "${CONNECTION_SERVICE_URI:}")
 public interface ConnectionClient {
     @GetMapping(path = "/first-degree")
     List<PersonDto> getFirstConnections(@RequestHeader("X-User-Id") Long userId);
